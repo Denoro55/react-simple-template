@@ -26,8 +26,8 @@ export default class Counter extends React.Component {
 	// 	return state;
 	// }
 
-	updateCounter = (newCount) => {
-		const count = Math.min(Math.max(newCount, this.props.min), this.props.max);
+	updateCounter = (e) => {
+		const count = parseInt(e.target.value);
 		this.setCount(count);
 	}	
 

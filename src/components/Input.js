@@ -13,7 +13,7 @@ export default class Input extends React.Component {
 
 	applyBlur = (e) => {
 		if (e.target.value != this.props.value) {
-			this.props.onChange(e.target.value);
+			this.props.onChange(e);
 		}
 	}
 
