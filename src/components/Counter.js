@@ -3,6 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Input from './Input';
 
+import styles from './input.css';
+import { Button } from 'react-bootstrap';
+
 export default class Counter extends React.Component {
 	static defaultProps = {
 		onChange: function() {}
@@ -54,8 +57,8 @@ export default class Counter extends React.Component {
 		return (
 			<div>
 				{ count }
-				<button onClick={this.decrement}>-</button>
-				<Input nativeProps={{className: 'input'}} onChange={this.updateCounter} value={count}/>
+				<Button onClick={this.decrement}>-</Button>
+				<Input nativeProps={{className: styles.input}} onChange={this.updateCounter} value={count}/>
 				<button onClick={this.increment}>+</button>
 			</div>
 		)
