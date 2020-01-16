@@ -16,7 +16,10 @@ const conf = {
 				loader: 'babel-loader',
 				options: {
 					presets: ['@babel/preset-env'],
-					"plugins": ["@babel/plugin-transform-react-jsx"]
+					"plugins": [
+						"@babel/plugin-transform-react-jsx",
+						"@babel/plugin-proposal-class-properties"
+					]
 				}
 			}
 		}
