@@ -8,7 +8,9 @@ const conf = {
 		path: path.resolve(__dirname, './dist/'),
 		publicPath: 'dist/'
 	},
-	plugins: [new MiniCssExtractPlugin()],
+	plugins: [new MiniCssExtractPlugin({
+        filename: 'styles.css'
+    })],
 	module: {
 		rules: [
 		{
@@ -20,7 +22,8 @@ const conf = {
 					presets: ['@babel/preset-env'],
 					"plugins": [
 						"@babel/plugin-transform-react-jsx",
-						"@babel/plugin-proposal-class-properties"
+                        ["@babel/plugin-proposal-decorators", {"legacy": true}],
+                        ["@babel/plugin-proposal-class-properties", { "loose": true }]
 					]
 				}
 			}
@@ -58,7 +61,15 @@ const conf = {
 				'css-loader'
 			],
 		}]
-	}
+	},
+    resolve: {
+        alias: {
+            '~': path.resolve(__dirname, 'src')
+        }
+    },
+    devServer: {
+	    historyApiFallback: true
+    }
 }
 
 module.exports = conf;

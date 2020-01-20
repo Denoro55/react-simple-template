@@ -3,67 +3,36 @@ import React from 'react';
 import Counter from './Counter';
 import Input from './Input';
 
-export default class TB2 extends React.Component {
-	state = {
-		products: [
-			{
-				id: 1,
-				name: 'Iphone X',
-				price: 12000,
-				currentCount: 1,
-				rest: 4
-			},
-			{
-				id: 2,
-				name: 'Samsung AS12',
-				price: 15000,
-				currentCount: 1,
-				rest: 7
-			},
-			{
-				id: 3,
-				name: 'Nokia KG19',
-				price: 7500,
-				currentCount: 1,
-				rest: 3
-			}
-		],
-		formDone: false
-	}
+import store from '~/store';
+import {observer} from "mobx-react";
 
-	updateProduct(id, count) {
-		console.log(id, count)
-		const newProducts = [...this.state.products];
-		const newProduct = newProducts[id];
-		newProduct.currentCount = count;
-		newProducts[id] = newProduct;
-		this.setState({
-			products: newProducts
-		})
-	}
+export default @observer class TB2 extends React.Component {
+	state = {
+		formDone: false
+	};
 
 	deleteItem = (id) => (e) => {
-		const newProducts = this.state.products.filter((e) => e.id !== id);
+		const newProducts = store.products.filter((e) => e.id !== id);
 		this.setState({
 			products: newProducts
 		})
-	}
+	};
 
 	sendForm = () => {
 		this.setState({
 			formDone: true
 		})
-	}
+	};
 
 	renderItems = () => {
-		const { products } = this.state;
-		return products.map((e, idx) => {
+	    console.log(store.products)
+		return store.products.map((e, idx) => {
 			return (
 				<tr key={e.id}>
 					<td>{e.name}</td>
 					<td>{e.price}</td>
 					<td>
-						<Counter onChange={(count) => this.updateProduct(idx, count)} min={1} max={e.rest} value={e.currentCount}/>
+						<Counter onChange={(count) => store.updateProduct(idx, count)} min={1} max={e.rest} value={e.currentCount}/>
 					</td>
 					<td>{e.currentCount * e.price}</td>
 					<td><button onClick={this.deleteItem(e.id)}>delete</button></td>
@@ -73,9 +42,9 @@ export default class TB2 extends React.Component {
 	}
 
 	render() {
-		const totalPrice = this.state.products.reduce((acc, e) => {
+		const totalPrice = store.products.reduce((acc, e) => {
 			return acc + (e.currentCount * e.price);
-		}, 0)
+		}, 0);
 		return (
 			<div className="table">
 				{ this.state.formDone ? getResult() : getForm(this.renderItems, this.sendForm) }
