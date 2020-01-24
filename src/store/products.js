@@ -1,7 +1,12 @@
 import {observable, action, computed} from "mobx";
 
 export default class {
-    @observable products = getProducts();
+    constructor(rootStore) {
+        this.rootStore = rootStore;
+        this.api = this.rootStore.api.products;
+    }
+
+    @observable products = [];
 
     @computed get getById() {
         const productsIds = {};
@@ -9,6 +14,12 @@ export default class {
             productsIds[pr.id] = pr;
         });
         return productsIds;
+    }
+
+    @action load() {
+        this.api.all().then(data => {
+            this.products = data;
+        })
     }
 }
 

@@ -1,10 +1,11 @@
 import React from 'react';
 import {observer} from "mobx-react";
+import makeRequest from "~/api/helpers/makeRequest";
 
 class Box extends React.PureComponent {
     state = {
         value: this.props.value
-    }
+    };
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.value !== this.props.value) {
@@ -33,7 +34,13 @@ export default @observer class Test extends React.Component {
         this.setState({
             value: this.state.value + 1
         })
-    }
+    };
+
+    makeRequest = () => {
+        makeRequest('index.php').then(data => {
+            console.log(data);
+        })
+    };
 
     render() {
         return (
@@ -43,6 +50,7 @@ export default @observer class Test extends React.Component {
                 <Box value={5} />
                 <hr/>
                 <button onClick={this.addValue(1, 2)}>Add value</button>
+                <button onClick={this.makeRequest}>Make request</button>
             </div>
         )
     }

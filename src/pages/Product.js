@@ -7,13 +7,20 @@ import withStore from "~/hocs/withStore";
 
 class Product extends React.Component {
     render() {
-        const {products: storeProducts} = this.props.store;
+        const {products: storeProducts, cart: storeCart} = this.props.store;
         const id = this.props.match.params.id;
         const product = storeProducts.getById[id];
         if (product === undefined) {
             return <Error404 />
         }
-        return <ProductItem name={product.name} price={product.price} link={routesMap.products} />
+        return <ProductItem
+            inCart={storeCart.has(product.id)}
+            onAdd={() => storeCart.addProduct(product.id)}
+            onRemove={() => storeCart.removeProduct(product.id)}
+            name={product.title}
+            price={product.price}
+            link={routesMap.products}
+        />
     }
 }
 

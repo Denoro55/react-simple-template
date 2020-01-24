@@ -12,10 +12,11 @@ class Products extends React.Component {
         return (
             <div className="row">
                 { storeProducts.products.map(product => {
+                    console.log(product)
                     let btn;
 
                     if (storeCart.has(product.id)) {
-                        btn = <Button onClick={() => storeCart.removeProduct(product.id)} variant="danger mr-3">Remove</Button>
+                        btn = <Button onClick={() => storeCart.removeProduct(product.id)} variant="danger">Remove</Button>
                     } else {
                         btn = <Button onClick={() => storeCart.addProduct(product.id)} variant="success">Add to order</Button>
                     }
@@ -23,7 +24,7 @@ class Products extends React.Component {
                             <div key={product.id} className={"col col-4 " + styles.card}>
                                 <Card style={{ width: '100%'}}>
                                     <Card.Body>
-                                        <Card.Title>{product.name}</Card.Title>
+                                        <Card.Title>{product.title}</Card.Title>
                                         <Card.Text>
                                             Price is {product.price}
                                         </Card.Text>

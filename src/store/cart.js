@@ -5,9 +5,10 @@ export default class {
         this.rootStore = rootStore;
     }
 
-    @observable cart = [{id: 1, count: 1}, {id: 2, count: 2}];
+    @observable cart = [];
 
     @action addProduct(id) {
+        console.log('add', id)
         this.cart.push({id, count: 1});
     }
 

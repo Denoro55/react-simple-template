@@ -68,8 +68,16 @@ const conf = {
         }
     },
     devServer: {
-	    historyApiFallback: true
+	    historyApiFallback: true,
+        proxy: {
+            '/react-api/**': {
+                target: 'http://localhost/',
+                secure: false,
+                changeOrigin: true
+            }
+        },
+        port: 8080
     }
-}
+};
 
 module.exports = conf;
